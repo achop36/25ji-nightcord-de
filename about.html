@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About 25:00 at Nightcord.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-color: #a29bfe; --bg-overlay: rgba(15, 15, 25, 0.9); }
+        body {
+            background: var(--bg-overlay) url('bg-main.jpg') center/cover fixed no-repeat;
+            color: #a0a0a0; font-family: 'Noto Sans TC', sans-serif; margin: 0; padding: 40px 20px; line-height: 1.6;
+        }
+        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .particle { position: absolute; background: rgba(162, 155, 254, 0.3); animation: fall linear infinite; box-shadow: 0 0 4px var(--primary-color); }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        .container { position: relative; z-index: 10; max-width: 800px; margin: 0 auto; }
+        .back-link { font-family: 'Rubik Glitch', system-ui; color: #555; text-decoration: none; border: 1px solid #222; padding: 5px 15px; transition: 0.3s; display: inline-block; margin-bottom: 20px; }
+        .back-link:hover { color: var(--primary-color); border-color: var(--primary-color); }
+        
+        h1 { font-family: 'Rubik Glitch', system-ui; font-size: 2.8rem; color: #fff; text-align: center; margin-bottom: 60px; }
+        
+        .member-card { 
+            background: rgba(20, 20, 30, 0.8); border: 1px solid #222; margin-bottom: 80px; 
+            border-radius: 4px; overflow: hidden; backdrop-filter: blur(8px); transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .member-card:hover { border-color: var(--primary-color); transform: scale(1.02); }
+        .member-img { width: 100%; filter: grayscale(80%); transition: 0.8s; }
+        .member-card:hover .member-img { filter: grayscale(0%); }
+
+        /* 滑動顯現文字特效 */
+        .member-info { 
+            padding: 40px; 
+            max-height: 0; opacity: 0; 
+            transform: translateY(20px);
+            transition: all 0.8s ease-in-out;
+            overflow: hidden;
+        }
+        .member-card:hover .member-info { max-height: 600px; opacity: 1; transform: translateY(0); }
+
+        .member-name { font-family: 'Rubik Glitch', system-ui; font-size: 2rem; margin: 0 0 15px 0; color: #eee; }
+        .dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; margin-right: 12px; }
+        .color-k { background: #58a6ff; box-shadow: 0 0 10px #58a6ff; }
+        .color-yuki { background: #a29bfe; box-shadow: 0 0 10px #a29bfe; }
+        .color-enana { background: #e67e22; box-shadow: 0 0 10px #e67e22; }
+        .color-amia { background: #fd79a8; box-shadow: 0 0 10px #fd79a8; }
+        
+        .description { font-size: 1rem; color: #bbb; text-align: justify; line-height: 1.8; }
+        footer { margin-top: 100px; color: #333; text-align: center; font-size: 0.7rem; border-top: 1px solid #222; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+    <div class="container">
+        <a href="index.html" class="back-link">← BACK</a>
+        <h1>ABOUT 25:00</h1>
+        
+        <div class="member-card">
+            <img src="C2BB4A1484F2FCC8FDD559CC7D868000.jpg" class="member-img">
+            <div class="member-info">
+                <p class="member-name"><span class="dot color-k"></span>宵崎 奏 (K)</p>
+                <div class="description">
+                    25時，在 Nightcord。的作曲家。為了償還心中的債，她一直把自己關在昏暗的房間裡，不眠不休地創作出能拯救他人的音樂。對她而言，除了創作出能讓人獲得希望的旋律外，別無他求。即便身心俱疲，也要在無盡的深夜中尋找那一絲拯救靈魂的音符。
+                </div>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <img src="D7538AB42EEE18B14F39B29746EC720D.jpg" class="member-img">
+            <div class="member-info">
+                <p class="member-name"><span class="dot color-yuki"></span>朝比奈 真冬 (Yuki)</p>
+                <div class="description">
+                    完美的模範生，卻早已失去了所有情感。她在他人面前戴著無可挑剔的面具，內心卻是一片死寂。在與奏等人的相遇中，她試圖尋回早已遺忘的「心」。她是在冰冷深海中溺水的靈魂，只能通過 25 時的共鳴，呼吸那一丁點微弱的空氣。
+                </div>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <img src="3444CA40187452AF3149F72DD48D3972.jpg" class="member-img">
+            <div class="member-info">
+                <p class="member-name"><span class="dot color-enana"></span>東雲 繪名 (Enana)</p>
+                <div class="description">
+                    插畫師，極度渴望他人的認可。即便被家人否定、即便自己的才能有限，她仍舊瘋狂地拿起畫筆，試圖在網絡的讚賞中填補內心的空虛。雖然話語犀利且好強，但她比任何人都更在乎這個能讓她展現真實自我的 25 時空間。
+                </div>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <img src="C8A344BAC053E0F801243688449DB234.jpg" class="member-img">
+            <div class="member-info">
+                <p class="member-name"><span class="dot color-amia"></span>曉山 瑞希 (Amia)</p>
+                <div class="description">
+                    MV 製作人，喜歡「可愛」的事物。雖然看起來開朗隨和，內心卻隱藏著一個無法言說的秘密。因為害怕被疏遠，始終與他人保持著若即若離的距離。瑞希是深夜中最絢爛卻也最易碎的煙火，渴望被接納，卻又深深恐懼著真相被揭穿的那一刻。
+                </div>
+            </div>
+        </div>
+
+        <footer>© 2026 Nightcord Members | poi~</footer>
+    </div>
+    <script>
+        (function() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                p.style.width = size + 'px'; p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.top = '-20px';
+                p.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                p.style.animationDelay = (Math.random() * 8) + 's';
+                container.appendChild(p);
+            }
+        })();
+    </script>
+</body>
+</html>

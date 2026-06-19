@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25:00 / The Empty SEKAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap" rel="stylesheet">
+    <style>
+        :root { --pjsk-pink: #ff79c6; --pjsk-blue: #8be9fd; --pjsk-green: #50fa7b; --pjsk-purple: #bd93f9; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #050508; color: #a29bfe; font-family: 'Rubik Glitch', system-ui; overflow: hidden; cursor: pointer; }
+        
+        /* 宵崎奏房間氛圍 */
+        .room-bg { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('bg-main.jpg') center/cover; 
+            z-index: 1; 
+        }
+        .monitor-glow { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 100vw; height: 100vh; 
+            background: radial-gradient(circle, rgba(162, 155, 254, 0.12) 0%, transparent 70%); 
+            animation: monitor-flicker 4s infinite; z-index: 2; 
+        }
+        @keyframes monitor-flicker { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.5; } 52% { opacity: 0.3; } 54% { opacity: 0.6; } }
+
+        .clock-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 10; pointer-events: none; }
+        #hk-time { font-size: 7rem; letter-spacing: 12px; text-shadow: 0 0 30px rgba(162, 155, 254, 0.6); margin-bottom: 20px; }
+        .instruction { font-size: 1.2rem; color: #444; letter-spacing: 4px; animation: breathe 3s infinite; }
+        @keyframes breathe { 0%, 100% { opacity: 0.2; transform: scale(0.98); } 50% { opacity: 0.8; transform: scale(1); } }
+
+        /* SEKAI 特效層 */
+        #sekai-flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; opacity: 0; z-index: 100; pointer-events: none; }
+        .fragment { position: absolute; z-index: 99; pointer-events: none; box-shadow: 0 0 15px currentColor; border-radius: 2px; }
+    </style>
+</head>
+<body onclick="enterSekai()">
+    <div class="room-bg"></div>
+    <div class="monitor-glow"></div>
+    <div class="clock-container">
+        <div id="hk-time">00:00:00</div>
+        <div class="instruction">Click To Enter The Sekai Of 25</div>
+    </div>
+    <div id="sekai-flash"></div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hk = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' }));
+            const h = String(hk.getHours()).padStart(2, '0');
+            const m = String(hk.getMinutes()).padStart(2, '0');
+            const s = String(hk.getSeconds()).padStart(2, '0');
+            const timeStr = `${h}:${m}:${s}`;
+            
+            document.getElementById('hk-time').innerText = timeStr;
+
+            // 觸發 25時 特效 (凌晨 01:00:00)
+            if (h === "01" && m === "00" && s === "00") {
+                triggerSekaiEvent();
+            }
+        }
+
+        function triggerSekaiEvent() {
+            const flash = document.getElementById('sekai-flash');
+            flash.style.opacity = '1';
+            const colors = ['#ff79c6', '#8be9fd', '#50fa7b', '#bd93f9', '#f1fa8c'];
+            for (let i = 0; i < 200; i++) {
+                createFragment(colors[Math.floor(Math.random() * colors.length)]);
+            }
+            setTimeout(() => { flash.style.transition = 'opacity 2.5s'; flash.style.opacity = '0'; }, 150);
+        }
+
+        function createFragment(color) {
+            const f = document.createElement('div');
+            f.className = 'fragment';
+            const size = Math.random() * 20 + 5;
+            f.style.width = size + 'px';
+            f.style.height = size + 'px';
+            f.style.background = color;
+            f.style.color = color;
+            f.style.left = '50vw';
+            f.style.top = '50vh';
+            document.body.appendChild(f);
+
+            const angle = Math.random() * Math.PI * 2;
+            const dist = Math.random() * 1200 + 600;
+            f.animate([
+                { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
+                { transform: `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${Math.random() * 1000}deg) scale(0)`, opacity: 0 }
+            ], { duration: 2500, easing: 'cubic-bezier(0.1, 1, 0.3, 1)', fill: 'forwards' });
+            setTimeout(() => f.remove(), 2500);
+        }
+
+        function enterSekai() {
+            document.body.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'home.html'; // 跳轉至新的導航主頁
+            }, 1000);
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>25:00 / Memory_Archive</title>
+    <style>
+        /* 基礎設定 */
+        :root { --accent: #a29bfe; --bg-dark: #05050a; }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
+
+        /* 背景層：確保它在最底層且完全撐開 */
+        #bg-image {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('./bg-main.jpg'); /* 加入 ./ 確保相對路徑解析 */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 1; /* 提升層級 */
+            transition: filter 1.2s ease, transform 1.5s ease;
+        }
+
+        /* 迷霧遮罩層 */
+        #fog-mask {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 30%, var(--bg-dark) 100%);
+            z-index: 2;
+            pointer-events: none; /* 確保不擋住按鈕點擊 */
+            transition: background 1.5s ease;
+        }
+
+        /* 沉浸模式：當 body 帶有 .immersive 類別時觸發 */
+        body.immersive #bg-image { filter: brightness(0.2) blur(15px); transform: scale(1.1); }
+        body.immersive #fog-mask { background: rgba(0, 0, 0, 0.85); }
+
+        /* 漫畫展示區 */
+        .manga-stage {
+            position: relative; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10;
+        }
+        .comic {
+            max-width: 85%; max-height: 80vh; 
+            position: absolute; opacity: 0; 
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(162, 155, 254, 0.3);
+        }
+        .comic.active { opacity: 1; transform: scale(1); }
+
+        /* 按鈕 UI */
+        .ui-layer { position: fixed; bottom: 40px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 100; }
+        .btn {
+            background: rgba(0,0,0,0.7); border: 1px solid var(--accent); color: var(--accent);
+            padding: 12px 24px; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 2px; transition: 0.3s;
+        }
+        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent); }
+    </style>
+</head>
+<body>
+
+    <div id="bg-image"></div>
+    <div id="fog-mask"></div>
+
+    <div class="manga-stage">
+        <img src="comic_0053.jpg" class="comic active">
+        <img src="comic_0054.jpg" class="comic">
+        <img src="comic_0055.jpg" class="comic">
+        <img src="comic_0061.jpg" class="comic">
+    </div>
+
+    <div class="ui-layer">
+        <button class="btn" onclick="handleFog()">FOG MODE</button>
+        <button class="btn" onclick="changePage(-1)">← PREV</button>
+        <button class="btn" onclick="changePage(1)">NEXT →</button>
+        <a href="home.html" class="btn" style="text-decoration:none">EXIT</a>
+    </div>
+
+    <script>
+        // 沉浸模式切換
+        function handleFog() {
+            console.log("Fog toggled"); // Master 可以在瀏覽器按 F12 看到這行
+            document.body.classList.toggle('immersive');
+        }
+
+        // 漫畫切換邏輯
+        let index = 0;
+        const comics = document.querySelectorAll('.comic');
+
+        function changePage(step) {
+            comics[index].classList.remove('active');
+            index = (index + step + comics.length) % comics.length;
+            comics[index].classList.add('active');
+        }
+
+        // 監聽鍵盤
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") changePage(1);
+            if (e.key === "ArrowLeft") changePage(-1);
+        });
+    </script>
+</body>
+</html>
